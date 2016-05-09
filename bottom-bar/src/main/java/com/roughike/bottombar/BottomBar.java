@@ -118,6 +118,7 @@ public class BottomBar extends FrameLayout implements View.OnClickListener, View
     private boolean mDrawBehindNavBar = true;
     private boolean mUseTopOffset = true;
     private boolean mUseOnlyStatusBarOffset;
+    private boolean mUseThemeMagic = true;
 
     private int mPendingTextAppearance = -1;
     private Typeface mPendingTypeface;
@@ -587,6 +588,13 @@ public class BottomBar extends FrameLayout implements View.OnClickListener, View
         }
 
         mIgnoreNightMode = true;
+    }
+
+    /**
+     * Use margin fixing magic when using light mode
+     */
+    public void useThemeMagic(boolean useThemeMagic) {
+        mUseThemeMagic = useThemeMagic;
     }
 
     /**
@@ -1175,7 +1183,7 @@ public class BottomBar extends FrameLayout implements View.OnClickListener, View
             mDefaultBackgroundColor = mCurrentBackgroundColor = mPrimaryColor;
             mBackgroundView.setBackgroundColor(mDefaultBackgroundColor);
 
-            if (mContext instanceof Activity) {
+            if (mContext instanceof Activity && mUseThemeMagic) {
                 navBarMagic((Activity) mContext, this);
             }
         }
